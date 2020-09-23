@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Table as Csv</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        table {
+            /* background-color: yellow; */
+            width: 200px;            
+        }
+        table td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-primary float-right" type="button" onclick="selectElementContents();">Click to copy table as csv</button>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <table class="table table-bordered table-striped" id="data_table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>OWNER</th>
+                            <th>DATE</th>
+                            <th>V1</th>
+                            <th>V2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>owner-1</td>
+                            <td>2020-01-01</td>
+                            <td>11.1451</td>
+                            <td>12.1452</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>owner-1</td>
+                            <td>2020-01-01</td>
+                            <td>11.1451</td>
+                            <td>12.1452</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>owner-1</td>
+                            <td>2020-01-01</td>
+                            <td>11.1451</td>
+                            <td>12.1452</td>
+                        </tr>
+                    </tbody>                    
+                </table>
+            </div>
+        </div>
+    </div>    
+    <script>
+        function selectElementContents() {
+            var el = document.getElementById("data_table");
+            var body = document.body, range, sel;
+            if (document.createRange && window.getSelection) {
+                range = document.createRange();
+                sel = window.getSelection();
+                sel.removeAllRanges();
+                try {
+                    range.selectNodeContents(el);
+                    sel.addRange(range);
+                } catch (e) {
+                    range.selectNode(el);
+                    sel.addRange(range);
+                }
+            } else if (body.createTextRange) {
+                range = body.createTextRange();
+                range.moveToElementText(el);
+                range.select();
+            }
+            document.execCommand("copy");
+            sel = window.getSelection();
+            sel.removeAllRanges();
+            alert("Success: Table copied as csv");
+        }
+    </script>
+
+</body>
+</html>
